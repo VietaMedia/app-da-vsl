@@ -1,0 +1,133 @@
+{
+  "app": { "name": "Sono Profundo", "shortName": "Sono", "slogan": "Durma melhor em 21 dias", "description": "Protocolo guiado de higiene do sono.", "ownerName": "Equipe Sono Profundo" },
+  "theme": { "primary": "#2b4c7e", "accent": "#f2b134", "background": "#f5f3ee", "text": "#1c2733" },
+  "identity": {
+    "mood": "foco",
+    "fonts": { "display": "Cormorant Garamond", "body": "Nunito Sans" },
+    "icon": { "symbol": "sun" },
+    "illustration": "wave"
+  },
+  "modules": [
+    { "key": "protocolo-21-dias", "type": "protocolo", "title": "Protocolo de 21 dias", "subtitle": "Um passo por dia",
+      "content": { "days": [
+        { "day": 1, "title": "Fase 1 · Horário fixo", "tasks": ["Definir hora de dormir", "Definir hora de acordar"], "tip": "Escolha um horário que dá pra manter todo dia, inclusive fim de semana." },
+        { "day": 2, "title": "Fase 1 · Sem telas", "tasks": ["Desligar telas 60 min antes"] },
+        { "day": 3, "title": "Fase 1 · Quarto escuro", "tasks": ["Cobrir fontes de luz", "Testar cortina blackout"] },
+        { "day": 4, "title": "Fase 1 · Cafeína", "tasks": ["Cortar cafeína depois das 14h"] },
+        { "day": 5, "title": "Fase 1 · Temperatura", "tasks": ["Ajustar o quarto para 18-20°C"] },
+        { "day": 6, "title": "Fase 1 · Ritual noturno", "tasks": ["Criar uma rotina de 15 min antes de dormir"] },
+        { "day": 7, "title": "Fase 1 · Revisão", "tasks": ["Revisar a semana", "Anotar o que funcionou"] },
+        { "day": 8, "title": "Fase 2 · Exposição à luz", "tasks": ["Pegar luz solar 10 min ao acordar"] },
+        { "day": 9, "title": "Fase 2 · Movimento", "tasks": ["Caminhar 20 min durante o dia"] },
+        { "day": 10, "title": "Fase 2 · Alimentação", "tasks": ["Jantar pelo menos 2h antes de deitar"] },
+        { "day": 11, "title": "Fase 2 · Respiração", "tasks": ["Praticar respiração 4-7-8 antes de dormir"] },
+        { "day": 12, "title": "Fase 2 · Ansiedade noturna", "tasks": ["Escrever as preocupações do dia num caderno"] },
+        { "day": 13, "title": "Fase 2 · Sonecas", "tasks": ["Evitar sonecas depois das 16h"] },
+        { "day": 14, "title": "Fase 2 · Revisão", "tasks": ["Revisar a semana", "Comparar horas de sono"] },
+        { "day": 15, "title": "Fase 2 · Consistência", "tasks": ["Manter o mesmo horário mesmo cansado"] },
+        { "day": 16, "title": "Fase 2 · Ambiente sonoro", "tasks": ["Testar ruído branco ou tampão de ouvido"] },
+        { "day": 17, "title": "Fase 2 · Álcool", "tasks": ["Evitar álcool nas últimas 4h antes de dormir"] },
+        { "day": 18, "title": "Fase 2 · Ajuste fino", "tasks": ["Ajustar o horário de dormir em 15 min se precisar"] },
+        { "day": 19, "title": "Fase 2 · Manutenção", "tasks": ["Repetir o ritual noturno completo"] },
+        { "day": 20, "title": "Fase 2 · Quase lá", "tasks": ["Revisar todos os hábitos criados"] },
+        { "day": 21, "title": "Fase 2 · Consolidação", "tasks": ["Planejar como manter a rotina depois do programa"] }
+      ] } },
+    { "key": "horas-de-sono", "type": "rastreador", "title": "Horas dormidas", "subtitle": "Registre toda manhã",
+      "content": { "metric": { "label": "Horas de sono", "unit": "h", "min": 0, "max": 14, "step": 0.5 }, "goal": 7.5 } },
+    { "key": "calculadora-sono", "type": "calculadora", "title": "Sua janela de sono", "subtitle": "Quando ir pra cama",
+      "content": {
+        "inputs": [
+          { "key": "acordar", "label": "Hora que precisa acordar (0-23)", "unit": "h", "default": 6, "min": 0, "max": 23 },
+          { "key": "meta", "label": "Meta de horas de sono", "unit": "h", "default": 7.5, "min": 4, "max": 12 }
+        ],
+        "formula": "(acordar - meta + 24) % 24",
+        "resultLabel": "Vá pra cama às", "resultUnit": "h",
+        "explanation": "Para dormir {meta}h e acordar às {acordar}h, deite às {result}h.",
+        "onboarding": true,
+        "metricKey": "horas-de-sono",
+        "goalInput": "meta"
+      } },
+    { "key": "agua", "type": "contador", "title": "Água", "subtitle": "Beba ao longo do dia",
+      "content": { "label": "Água", "unit": "copos", "goal": 8, "step": 1 } },
+    { "key": "metodo", "type": "trilha", "title": "O método", "subtitle": "Aulas e checklists",
+      "content": { "sections": [
+        { "key": "base", "title": "Base", "steps": [
+          { "key": "por-que", "title": "Por que você não dorme", "body": "Texto da aula em **markdown**.", "checklist": ["Assisti a aula", "Anotei meus gatilhos"] },
+          { "key": "ciclos", "title": "Como funcionam os ciclos de sono", "body": "Texto da aula sobre ciclos de 90 minutos.", "checklist": ["Assisti a aula"] }
+        ] },
+        { "key": "avancado", "title": "Avançado", "steps": [
+          { "key": "ansiedade", "title": "Lidando com a ansiedade noturna", "body": "Texto da aula sobre ansiedade e sono.", "checklist": ["Assisti a aula", "Pratiquei a respiração"] }
+        ] }
+      ] } },
+    { "key": "guias-do-sono", "type": "guias", "title": "Guias", "subtitle": "Listas, receitas e passos",
+      "content": { "guides": [
+        { "key": "kit-do-quarto", "kind": "lista", "title": "Kit do quarto ideal", "intro": "O que ter à mão para dormir melhor.", "estimate": "15 min pra montar",
+          "sections": [
+            { "title": "Escuridão", "tag": "essencial", "items": [ { "name": "Cortina blackout", "qty": "1 jogo" }, { "name": "Máscara de dormir", "qty": "1 unidade" } ] },
+            { "title": "Som", "items": [ { "name": "Máquina de ruído branco", "qty": "1 unidade" } ] }
+          ] },
+        { "key": "cha-da-noite", "kind": "receita", "title": "Chá calmante da noite", "intro": "Prepare 30 minutos antes de dormir.", "time": "5 min", "servings": "1 porção",
+          "ingredients": ["1 xícara de água quente", "1 saquinho de camomila", "1 colher de mel"],
+          "steps": ["Ferva a água", "Adicione o saquinho de camomila e deixe por 4 min", "Misture o mel e beba morno"],
+          "tip": "Evite mel se for tomar logo antes de deitar e tiver refluxo." },
+        { "key": "ritual-noturno", "kind": "passos", "title": "Ritual noturno em 4 passos", "intro": "Siga sempre na mesma ordem.",
+          "steps": [
+            { "title": "Desligar telas", "body": "Guarde o celular fora do quarto.", "minutes": 5 },
+            { "title": "Luz baixa", "body": "Troque para luz amarela e fraca.", "minutes": 5 },
+            { "title": "Alongamento leve", "body": "Alongue pescoço e ombros.", "minutes": 5 },
+            { "title": "Respiração", "body": "Pratique a respiração 4-7-8.", "minutes": 5 }
+          ] },
+        { "key": "por-que-o-sono-importa", "kind": "texto", "title": "Por que o sono importa", "intro": "Textos rápidos pra entender (e lembrar) o essencial.",
+          "blocks": [
+            { "heading": "O que acontece enquanto você dorme", "body": "Durante o sono profundo, o cérebro consolida memórias e o corpo repara tecidos. Cortar essa fase reduz o benefício da noite inteira, mesmo dormindo o mesmo número de horas.", "copiavel": true },
+            { "heading": "Frase pra colar no espelho", "body": "**\"Durmo no mesmo horário todo dia, inclusive fim de semana.\"**", "copiavel": true }
+          ] },
+        { "key": "meditacoes-guiadas", "kind": "audio", "title": "Meditações guiadas pra dormir", "intro": "Escolha uma faixa e deixe tocar até o fim.",
+          "tracks": [
+            { "title": "Respiração 4-7-8", "url": "https://cdn.example.com/audio/respiracao-478.mp3", "duration": "5:00" },
+            { "title": "Corpo relaxado", "url": "https://cdn.example.com/audio/corpo-relaxado.mp3", "duration": "8:30" }
+          ] },
+        { "key": "guia-do-quarto-perfeito", "kind": "pagina", "title": "Guia do quarto perfeito", "intro": "Leia cada seção e marque o que já resolveu.",
+          "sections": [
+            { "title": "Temperatura e ar", "body": "O ideal fica entre 18 e 20°C. Ventile o quarto por 10 minutos antes de dormir.",
+              "checklist": ["Testei a temperatura do quarto", "Deixei o quarto ventilar antes de dormir"] },
+            { "title": "Ruído", "body": "Ruído branco constante ajuda mais do que silêncio total pra quem mora em rua movimentada.",
+              "checklist": ["Testei uma máquina ou app de ruído branco"] }
+          ] }
+      ] } },
+    { "key": "lembretes", "type": "lembretes", "title": "Lembretes", "subtitle": "Sua rotina",
+      "content": { "items": [ { "key": "desligar-telas", "title": "Desligar telas", "time": "21:00" } ] } },
+    { "key": "quiz-perfil-sono", "type": "quiz", "title": "Seu perfil de sono", "subtitle": "3 perguntas rápidas",
+      "content": {
+        "onboarding": false,
+        "questions": [
+          { "key": "dificuldade", "text": "O que mais atrapalha seu sono hoje?",
+            "options": [
+              { "key": "pegar-no-sono", "label": "Demoro pra pegar no sono", "points": { "ansioso": 2, "desregulado": 0, "leve": 0 } },
+              { "key": "acordar-de-noite", "label": "Acordo várias vezes de noite", "points": { "ansioso": 0, "desregulado": 1, "leve": 1 } },
+              { "key": "horario", "label": "Meu horário muda todo dia", "points": { "ansioso": 0, "desregulado": 2, "leve": 0 } }
+            ] },
+          { "key": "mente", "text": "Como sua mente costuma estar na hora de deitar?",
+            "options": [
+              { "key": "acelerada", "label": "Acelerada, cheia de pensamentos", "points": { "ansioso": 2, "desregulado": 0, "leve": 0 } },
+              { "key": "cansada", "label": "Cansada, mas inquieta", "points": { "ansioso": 1, "desregulado": 1, "leve": 0 } },
+              { "key": "tranquila", "label": "Tranquila, só o corpo não colabora", "points": { "ansioso": 0, "desregulado": 0, "leve": 2 } }
+            ] },
+          { "key": "rotina", "text": "Como está sua rotina de horários?",
+            "options": [
+              { "key": "sem-rotina", "label": "Não tenho horário fixo", "points": { "ansioso": 0, "desregulado": 2, "leve": 0 } },
+              { "key": "quase-fixa", "label": "Quase sempre no mesmo horário", "points": { "ansioso": 1, "desregulado": 0, "leve": 1 } },
+              { "key": "fixa", "label": "Durmo e acordo sempre no mesmo horário", "points": { "ansioso": 0, "desregulado": 0, "leve": 2 } }
+            ] }
+        ],
+        "profiles": [
+          { "key": "ansioso", "title": "Sono ansioso", "description": "Sua mente ainda está ligada quando o corpo já quer dormir.",
+            "ajustes": "- Comece o ritual noturno 60 minutos antes de deitar\n- Escreva as preocupações do dia num papel antes de ir pra cama\n- Use as meditações guiadas de respiração como primeiro passo" },
+          { "key": "desregulado", "title": "Sono desregulado", "description": "Seu maior ganho está em fixar horários, não em técnicas de relaxamento.",
+            "ajustes": "- Escolha um horário de dormir e acordar e mantenha por 7 dias seguidos\n- Pegue luz solar nos primeiros 10 minutos após acordar\n- Evite cochilos depois das 16h" },
+          { "key": "leve", "title": "Sono quase lá", "description": "Sua base já é boa — faltam ajustes finos de ambiente.",
+            "ajustes": "- Revise o guia do quarto perfeito e feche os pontos que faltam\n- Corte telas 30 minutos antes de deitar\n- Mantenha o que já está funcionando" }
+        ]
+      } }
+  ]
+}

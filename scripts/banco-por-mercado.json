@@ -1,0 +1,312 @@
+{
+  "_descricao": "Banco por mercado (PADRAO-DE-QUALIDADE.md §3.1). Usado como validador/fallback quando a marca existente e as cores da VSL não bastam. Cada família passa por contraste.mjs::paletaValida antes de ser usada.",
+  "familias": {
+    "saude-natural": {
+      "mercado": "Saúde natural, alimentação",
+      "theme": {
+        "primary": "#2F6B3A",
+        "primaryDark": "#1F4A28",
+        "accent": "#E07A2F",
+        "background": "#FBF7F0",
+        "surface": "#FFFFFF",
+        "text": "#1F2A1F"
+      },
+      "fonts": {
+        "display": "Cormorant Garamond",
+        "body": "Nunito Sans"
+      },
+      "symbol": "leaf",
+      "illustration": "leaf",
+      "mood": "natural",
+      "palavrasChave": [
+        "saúde natural",
+        "alimentação",
+        "receita",
+        "chá",
+        "fitoterapia",
+        "dieta natural",
+        "natural health",
+        "diet",
+        "recipe",
+        "herbal",
+        "healthy eating",
+        "salud natural",
+        "alimentación",
+        "receta",
+        "hierbas"
+      ]
+    },
+    "clinico": {
+      "mercado": "Clínico, emagrecimento médico, sono",
+      "theme": {
+        "primary": "#1F6E6E",
+        "primaryDark": "#124A4A",
+        "accent": "#28A598",
+        "background": "#F2F7F7",
+        "surface": "#FFFFFF",
+        "text": "#122B2B"
+      },
+      "fonts": {
+        "display": "Playfair Display",
+        "body": "Source Sans 3"
+      },
+      "symbol": "drop",
+      "illustration": "pulse",
+      "mood": "clinico",
+      "palavrasChave": [
+        "emagrecimento",
+        "médico",
+        "clínica",
+        "sono",
+        "insônia",
+        "tratamento",
+        "medication",
+        "clinical",
+        "sleep",
+        "weight loss",
+        "doctor",
+        "adelgazar",
+        "clínico",
+        "sueño",
+        "tratamiento"
+      ]
+    },
+    "fitness": {
+      "mercado": "Fitness, treino, performance",
+      "theme": {
+        "primary": "#3A3A3A",
+        "primaryDark": "#1E1E1E",
+        "accent": "#D9622B",
+        "background": "#F1F1EF",
+        "surface": "#FFFFFF",
+        "text": "#1A1A1A"
+      },
+      "fonts": {
+        "display": "Anton",
+        "body": "Manrope"
+      },
+      "symbol": "dumbbell",
+      "illustration": "pulse",
+      "mood": "fitness",
+      "palavrasChave": [
+        "treino",
+        "academia",
+        "musculação",
+        "performance",
+        "workout",
+        "gym",
+        "training",
+        "muscle",
+        "entrenamiento",
+        "gimnasio",
+        "rendimiento"
+      ]
+    },
+    "financeiro": {
+      "mercado": "Finanças, renda extra, negócios",
+      "theme": {
+        "primary": "#1B2A52",
+        "primaryDark": "#101A38",
+        "accent": "#BB8D22",
+        "background": "#FAF7EF",
+        "surface": "#FFFFFF",
+        "text": "#171C2E"
+      },
+      "fonts": {
+        "display": "Libre Baskerville",
+        "body": "IBM Plex Sans"
+      },
+      "symbol": "coin",
+      "illustration": "coins",
+      "mood": "financeiro",
+      "palavrasChave": [
+        "renda extra",
+        "dinheiro",
+        "investimento",
+        "negócio",
+        "faturamento",
+        "money",
+        "income",
+        "business",
+        "investment",
+        "revenue",
+        "dinero",
+        "ingresos",
+        "negocio",
+        "inversión"
+      ]
+    },
+    "prosperidade": {
+      "mercado": "Prosperidade, espiritualidade, fé",
+      "theme": {
+        "primary": "#4B2E6E",
+        "primaryDark": "#311E49",
+        "accent": "#BB8D22",
+        "background": "#F7F2E9",
+        "surface": "#FFFFFF",
+        "text": "#241A33"
+      },
+      "fonts": {
+        "display": "Cormorant Garamond",
+        "body": "Nunito Sans"
+      },
+      "symbol": "sun",
+      "illustration": "sparkles",
+      "mood": "natural",
+      "palavrasChave": [
+        "prosperidade",
+        "espiritualidade",
+        "fé",
+        "oração",
+        "gratidão",
+        "manifestação",
+        "prosperity",
+        "spirituality",
+        "faith",
+        "prayer",
+        "gratitude",
+        "manifestation",
+        "prosperidad",
+        "espiritualidad",
+        "fe",
+        "oración"
+      ]
+    },
+    "relacionamento": {
+      "mercado": "Relacionamento, autoestima",
+      "theme": {
+        "primary": "#7A2E43",
+        "primaryDark": "#511D2C",
+        "accent": "#CD8267",
+        "background": "#FBF1EC",
+        "surface": "#FFFFFF",
+        "text": "#2E1A20"
+      },
+      "fonts": {
+        "display": "Lora",
+        "body": "Nunito Sans"
+      },
+      "symbol": "heart",
+      "illustration": "wave",
+      "mood": "beleza",
+      "palavrasChave": [
+        "relacionamento",
+        "autoestima",
+        "casal",
+        "reconquista",
+        "amor",
+        "relationship",
+        "self-esteem",
+        "couple",
+        "love",
+        "relación",
+        "autoestima",
+        "pareja",
+        "amor"
+      ]
+    },
+    "beleza": {
+      "mercado": "Beleza, pele, cabelo",
+      "theme": {
+        "primary": "#8A4B3B",
+        "primaryDark": "#5C3126",
+        "accent": "#D97C48",
+        "background": "#FBF3EC",
+        "surface": "#FFFFFF",
+        "text": "#2B1C17"
+      },
+      "fonts": {
+        "display": "Cormorant Garamond",
+        "body": "Poppins"
+      },
+      "symbol": "star",
+      "illustration": "sparkles",
+      "mood": "beleza",
+      "palavrasChave": [
+        "beleza",
+        "pele",
+        "cabelo",
+        "estética",
+        "skincare",
+        "beauty",
+        "skin",
+        "hair",
+        "aesthetic",
+        "belleza",
+        "piel",
+        "cabello",
+        "estética"
+      ]
+    },
+    "educacao": {
+      "mercado": "Educação, hobby, habilidade",
+      "theme": {
+        "primary": "#1E3A6E",
+        "primaryDark": "#122448",
+        "accent": "#BD8B18",
+        "background": "#F8F5EC",
+        "surface": "#FFFFFF",
+        "text": "#18202E"
+      },
+      "fonts": {
+        "display": "DM Serif Display",
+        "body": "Manrope"
+      },
+      "symbol": "book",
+      "illustration": "gear",
+      "mood": "foco",
+      "palavrasChave": [
+        "curso",
+        "aula",
+        "aprender",
+        "habilidade",
+        "hobby",
+        "course",
+        "lesson",
+        "learn",
+        "skill",
+        "curso",
+        "clase",
+        "aprender",
+        "habilidad"
+      ]
+    },
+    "produtividade": {
+      "mercado": "Produtividade, foco, mente",
+      "theme": {
+        "primary": "#1E2A52",
+        "primaryDark": "#121A38",
+        "accent": "#34A0C0",
+        "background": "#F1F3F6",
+        "surface": "#FFFFFF",
+        "text": "#151A26"
+      },
+      "fonts": {
+        "display": "Space Grotesk",
+        "body": "Manrope"
+      },
+      "symbol": "brain",
+      "illustration": "gear",
+      "mood": "foco",
+      "palavrasChave": [
+        "produtividade",
+        "foco",
+        "mente",
+        "hábito",
+        "rotina",
+        "concentração",
+        "productivity",
+        "focus",
+        "mind",
+        "habit",
+        "routine",
+        "concentration",
+        "productividad",
+        "enfoque",
+        "mente",
+        "hábito",
+        "rutina"
+      ]
+    }
+  }
+}
