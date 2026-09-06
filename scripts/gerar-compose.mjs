@@ -5,7 +5,9 @@
 // A imagem NAO vem de registro nenhum: ela e construida na propria VPS, a partir
 // do repositorio privado do app no GitHub, usando o token que o mentorado ja tem
 // (`gh auth token`). O token nunca aparece no YAML - ele entra pela variavel
-// REPO_URL, que o Docker Compose interpola dentro de build.context.
+// REPO_URL, que o Docker Compose interpola dentro do comando `docker build` do
+// projeto de build separado (o Docker Manager da Hostinger so faz pull+up, nunca
+// build - por isso o compose do app so referencia a imagem local, sem `build:`).
 // Identificadores SQL vao SEM crase: dentro de `sh -c "..."` a crase vira substituicao de comando
 // (achado no teste local de 2026-09-06). O slug validado garante que o nome nao precisa de aspas.
 import fs from 'node:fs';
@@ -37,11 +39,25 @@ export function gerarCompose(o) {
 
   const banco = o.slug.replace(/-/g, '_');
   const projeto = `app-${o.slug}`;
+  const projetoBuild = `build-${o.slug}`;
   const https = o.https !== false;
   const rotulo = https ? o.host : `http://${o.host}`;
   const databaseUrl = `mysql://${banco}:${o.dbSenha}@mysql:3306/${banco}?connection_limit=5`;
   const commit7 = o.commit.slice(0, 7);
   const repoUrl = `https://x-access-token:${o.ghToken}@github.com/${o.repo}.git#${o.commit}`;
+
+  const composeBuild = `# Gerado por gerar-compose.mjs. Projeto de build: constroi a imagem do app na propria VPS
+# a partir do repositorio privado (REPO_URL vem do environment do projeto) e sai.
+services:
+  build:
+    image: docker:27-cli
+    restart: "no"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      DOCKER_BUILDKIT: "1"
+    command: ["docker", "build", "--progress=plain", "-t", "app-${o.slug}:${commit7}", "\${REPO_URL}"]
+`;
 
   const compose = `# Gerado por gerar-compose.mjs. Nao edite na mao: gere de novo.
 # A rede "borda_default" e a rede padrao do projeto compose "borda" (Caddy + MySQL).
@@ -64,10 +80,8 @@ services:
       DB_SENHA: \${DB_SENHA}
 
   app:
-    build:
-      context: "\${REPO_URL}"
-      dockerfile: Dockerfile
     image: app-${o.slug}:${commit7}
+    pull_policy: never
     restart: unless-stopped
     depends_on:
       criar-banco:
@@ -100,7 +114,10 @@ networks:
     `REPO_URL=${repoUrl}`,
   ].join('\n') + '\n';
 
-  return { projeto, compose, environment, databaseUrl, host: o.host, imagem: `app-${o.slug}:${commit7}` };
+  return {
+    projeto, compose, environment, databaseUrl, host: o.host,
+    imagem: `app-${o.slug}:${commit7}`, projetoBuild, composeBuild,
+  };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

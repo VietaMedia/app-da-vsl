@@ -234,12 +234,39 @@ node ~/.claude/skills/app-da-vsl/scripts/gerar-compose.mjs apps/<slug>/destino/o
   > apps/<slug>/destino/compose.json
 ```
 
-O `compose.json` traz `projeto`, `compose`, `environment`, `databaseUrl`, `host` e
-`imagem` (o nome local `app-<slug>:<commit7>`, só pra rotular a imagem construída).
-**Ele contém senhas e o token do GitHub** — não copie nada dele para o `03-entrega.md`
-além do PIN do dono.
+O `compose.json` traz `projeto`, `compose`, `environment`, `databaseUrl`, `host`,
+`imagem` (o nome local `app-<slug>:<commit7>`), e mais dois campos pro projeto de build:
+`projetoBuild` (`build-<slug>`) e `composeBuild`. **Ele contém senhas e o token do
+GitHub** — não copie nada dele para o `03-entrega.md` além do PIN do dono.
 
 ### 2.4 Subir o projeto
+
+**O Docker Manager da Hostinger (`VPS_createNewProjectV1`) só faz `pull` + `up` — ele
+nunca faz `build`.** Por isso a receita sobe em dois passos: primeiro um projeto separado
+que constrói a imagem pelo socket do Docker, depois o projeto do app, que só referencia
+essa imagem local (`pull_policy: never`, sem `build:` no compose).
+
+**2.4a — construir a imagem:**
+
+```
+VPS_createNewProjectV1(
+  virtualMachineId: <id>,
+  project_name: <campo "projetoBuild" do compose.json>,
+  content: <campo "composeBuild">,
+  environment: <campo "environment" do compose.json>
+)
+```
+
+Espere o container `build-1` terminar com sucesso:
+
+- `VPS_getProjectContainersV1(virtualMachineId, projectName: <projetoBuild>)` até o
+  estado virar `exited` com código de saída `0`.
+- `VPS_getProjectLogsV1(virtualMachineId, projectName: <projetoBuild>)` mostra
+  `naming to docker.io/library/app-<slug>:<commit7>` e termina com `DONE`.
+- Numa KVM 1 isso leva de **2 a 4 minutos**. Se aparecer `Killed`, é falta de memória
+  (mesma mitigação do RISCO em 2.5: swap de 2 GB).
+
+**2.4b — só então subir o app**, apontando pra imagem que acabou de ser construída:
 
 ```
 VPS_createNewProjectV1(
@@ -250,10 +277,15 @@ VPS_createNewProjectV1(
 )
 ```
 
-Republicar é a mesma chamada com o mesmo `project_name` e um `commit` novo — a documentação
-diz que o projeto existente é substituído. `VPS_updateProjectV1(virtualMachineId,
-projectName)` recria os containers sem trocar o compose; ele só ajuda se você não mudou o
-commit.
+O log do `pull` deste projeto vai reclamar `pull access denied` pra `app-<slug>` — isso é
+**normal**: não existe registro nenhum com esse nome, e o Docker Manager tenta um `pull`
+mesmo com `pull_policy: never`. O deploy segue porque a imagem já existe localmente na
+VPS (construída em 2.4a) e o `up` a usa direto.
+
+Republicar = rodar 2.4a de novo com o commit novo, esperar terminar, e só então rodar
+2.4b de novo (mesmo `project_name` nos dois — o projeto existente é substituído).
+`VPS_updateProjectV1(virtualMachineId, projectName)` recria os containers sem trocar o
+compose; ele só ajuda se você não mudou o commit.
 
 ### 2.5 Esperar e conferir
 
@@ -298,9 +330,10 @@ o GitHub — acrescente `destino/` ao `.gitignore` da pasta de trabalho.
 | Sintoma | Causa | Conserto |
 |---|---|---|
 | `network borda_default not found` | o projeto `borda` não existe, ou subiu com outro nome | `VPS_getProjectListV1`; recrie o projeto com `project_name` exatamente `borda` (parte 1.3) |
-| Build fica minutos sem sair do lugar no primeiro `up` | é o `next build` acontecendo dentro da VPS | Esperar. Só investigue depois de ~10 min |
-| Build morre com `Killed` / OOM no `next build` | memória da KVM 1 | Ver o RISCO em 2.5: swap, e em último caso registro privado |
+| Build fica minutos sem sair do lugar no projeto de build | é o `next build` acontecendo dentro da VPS | Esperar. Só investigue depois de ~10 min |
+| Build morre com `Killed` / OOM no `next build` | memória da KVM 1 | Ver o RISCO em 2.5: swap, e em último caso registro privado. O erro aparece nos logs do projeto de build (2.4a), não no do app |
 | `failed to fetch ... <sha>` no build | o contexto git não achou o commit | Trocar `#<commit>` por `#main` e republicar (RISCO de 2.1) |
+| `No such image` ao subir o projeto do app | o projeto de build (2.4a) não terminou ou falhou | Olhe `VPS_getProjectLogsV1` do projeto de build antes de recriar o app |
 | `authentication required` / 404 no clone do build | `ghToken` vencido, sem acesso ao repo, ou `REPO_URL` não chegou | `gh auth token` de novo, gerar o compose de novo, `VPS_getProjectContentsV1` pra ver se o `.env` chegou |
 | App fica `unhealthy` e reinicia | MySQL ainda subindo no primeiro boot | Esperar; se persistir, `VPS_getProjectLogsV1` e subir o `start-period` do HEALTHCHECK |
 | `Access denied for user` | o `criar-banco` rodou antes do MySQL aceitar conexão, ou a senha mudou | `VPS_restartProjectV1` no projeto do app: o `criar-banco` roda de novo e faz `ALTER USER` |

@@ -62,13 +62,28 @@ test('o servico de criar banco roda uma vez so', () => {
 
 test('a imagem e construida na VPS a partir do repositorio, via REPO_URL', () => {
   const r = gerarCompose(base);
-  assert.match(r.compose, /build:\n\s+context: "\$\{REPO_URL\}"\n\s+dockerfile: Dockerfile/);
+  assert.doesNotMatch(r.compose, /build:/);
   assert.match(r.compose, /image: app-renda-smart:0123456/);
+  assert.match(r.compose, /pull_policy: never/);
   assert.doesNotMatch(r.compose, /^\s+image: ghcr\.io/m);
   const linhaRepo = r.environment.split('\n').find((l) => l.startsWith('REPO_URL='));
   assert.ok(linhaRepo, 'environment tem que trazer REPO_URL');
   assert.match(linhaRepo, /x-access-token:/);
   assert.match(linhaRepo, new RegExp(`#${COMMIT}$`));
+});
+
+test('o projeto de build separado constroi a imagem pelo socket do docker', () => {
+  const r = gerarCompose(base);
+  assert.equal(r.projetoBuild, 'build-renda-smart');
+  assert.match(r.composeBuild, /\$\{REPO_URL\}/);
+  assert.match(r.composeBuild, /docker\.sock/);
+  assert.match(r.composeBuild, /-t", "app-renda-smart:0123456/);
+});
+
+test('nem o compose do app nem o do build vazam o ghToken', () => {
+  const r = gerarCompose(base);
+  assert.doesNotMatch(r.compose, /gho_tokenSecretoDoMentorado/);
+  assert.doesNotMatch(r.composeBuild, /gho_tokenSecretoDoMentorado/);
 });
 
 test('environment traz todas as variaveis e nenhuma vazia', () => {

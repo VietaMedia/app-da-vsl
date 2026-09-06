@@ -69,3 +69,5 @@ Armadilhas da VPS:
 8. Firewall: `protocol: "TCP"` + `port` funciona (22, 80, 443 criados assim). Ativar com `VPS_activateFirewallV1`
    só quando a VM estiver `running`.
 9. DNS: em `DNS_updateDNSRecordsV1`, `name` é o rótulo puro (`renda-smart`), não o FQDN — confirmado.
+10. Docker Manager = pull + up, sem build. `build:` no compose é ignorado e o deploy falha com No such image.
+    Por isso a receita usa um projeto `build-<slug>` separado que constrói pelo socket.
