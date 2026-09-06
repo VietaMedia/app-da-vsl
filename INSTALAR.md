@@ -34,6 +34,18 @@ Ele pode ter feito qualquer uma destas coisas. Descubra qual e resolva sozinho:
 - **Arrastou o `.zip`** → descompacte primeiro (`unzip`), depois siga.
 - **Só falou "instala a skill"** → procure em `~/Downloads` por `app-da-vsl*`. Se achar,
   confirme: *"achei isso aqui no seu Downloads, é esse?"*.
+- **Mandou o link do GitHub** (`https://github.com/VietaMedia/app-da-vsl`) ou não tem
+  arquivo nenhum → baixe você mesmo, direto no lugar certo, e pule para o Passo 3:
+
+  ```bash
+  rm -rf ~/.claude/skills/app-da-vsl
+  git clone --depth 1 https://github.com/VietaMedia/app-da-vsl.git ~/.claude/skills/app-da-vsl
+  chmod +x ~/.claude/skills/app-da-vsl/scripts/*.sh
+  ```
+
+  (Se `git` não existir, `xcode-select --install` no Mac resolve; no Windows, instale o Git
+  de git-scm.com. Sem `git`, baixe o zip em "Code → Download ZIP" no GitHub e siga pelo
+  caminho do zip — a pasta vem como `app-da-vsl-main`, e o Passo 1 já trata o aninhamento.)
 
 **Cuidado com o aninhamento.** Descompactar às vezes gera
 `app-da-vsl/app-da-vsl/SKILL.md`. O que você quer é a pasta que contém **diretamente** o
