@@ -71,3 +71,7 @@ Armadilhas da VPS:
 9. DNS: em `DNS_updateDNSRecordsV1`, `name` é o rótulo puro (`renda-smart`), não o FQDN — confirmado.
 10. Docker Manager = pull + up, sem build. `build:` no compose é ignorado e o deploy falha com No such image.
     Por isso a receita usa um projeto `build-<slug>` separado que constrói pelo socket.
+11. **Imagem Docker: a pasta de trabalho NÃO pode ser `/app`.** O template tem uma rota chamada `app`
+    (`app/app/...`); com `WORKDIR /app` o Next standalone confunde os caminhos e TODA rota responde 307 → `/entrar`
+    (loop), inclusive `/entrar` e 404. O `Dockerfile` do template usa `/srv/site`. Se um dia alguém "simplificar"
+    para `/app`, o app quebra silenciosamente só no container (fora dele funciona).
