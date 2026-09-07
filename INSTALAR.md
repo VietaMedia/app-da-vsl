@@ -88,7 +88,7 @@ scripts/:    checar.sh  construir.sh  transcrever.sh  smoke.sh
              extrair-cores.mjs  screenshots.mjs  validar-config.mjs
              compose-borda.yml  banco-por-mercado.json
              publicar-business.md  publicar-vps.md
-             package.json  tests/
+             package.json  tests/  windows/ (instalar.ps1  checar.ps1)
 template/package.json
 ```
 
@@ -116,6 +116,53 @@ precisa fazer na tela dele:
 
 - **Homebrew**, se não tiver — mande ele colar o comando do site `brew.sh`.
 - **`gh auth login`** — é interativo, abre o navegador. Guie passo a passo.
+
+No Windows o próprio `checar.sh` já troca as dicas: em vez de `brew install ...`, ele
+imprime o comando do instalador do Windows. Veja a seção abaixo.
+
+---
+
+## Se for Windows
+
+> ⚠️ **A versão Windows nunca foi executada numa máquina Windows real.** Foi escrita com
+> cuidado e revisada, mas não testada. Se algo falhar nela, o problema provavelmente é da
+> skill, não do usuário — anote o erro e avise o Guilherme.
+
+No Windows, o Claude Code roda dentro do **Git Bash** (o terminal que vem com o Git for
+Windows). Por isso **tudo continua igual**: os mesmos scripts `.sh`, os mesmos caminhos com
+barra normal. `~/.claude/skills/app-da-vsl` no Git Bash **é a mesma pasta** que
+`%USERPROFILE%\.claude\skills\app-da-vsl` no Explorador de Arquivos. Não existe versão
+`.ps1` dos passos 1 a 3 — copie os arquivos do mesmo jeito.
+
+O que muda é **só o instalador de programas**. Onde no Mac é o Homebrew, no Windows é este
+comando — rode **você**, não peça pra ele:
+
+```bash
+powershell -ExecutionPolicy Bypass -File "$HOME/.claude/skills/app-da-vsl/scripts/windows/instalar.ps1"
+```
+
+Esse `-ExecutionPolicy Bypass` não é opcional: sem ele o Windows bloqueia o script e não
+acontece nada. O instalador põe, se faltarem, o Git, o Node, o `gh`, o `ffmpeg`, o programa
+que transcreve (whisper) e o modelo de transcrição — e deixa o whisper visível pro terminal.
+Leva uns 10 minutos na primeira vez.
+
+Pra só conferir, sem instalar nada:
+
+```bash
+powershell -ExecutionPolicy Bypass -File "$HOME/.claude/skills/app-da-vsl/scripts/windows/checar.ps1"
+```
+
+Depois de instalar, **feche e abra o terminal** — os programas novos só aparecem numa
+sessão nova. Aí rode o `checar.sh` de sempre pra confirmar.
+
+**O único passo que o aluno faz na tela dele é o `gh auth login`** (entrar na conta do
+GitHub, abre o navegador). Todo o resto é você.
+
+Duas coisas que o Git Bash não tem e a skill resolve sozinha: `rsync` (o `construir.sh` usa
+o Node no lugar) e `zip` (usa o compactador do próprio Windows). Você não precisa fazer nada.
+
+O Google Chrome, se faltar, ele baixa em `google.com/chrome` — não tem instalador
+automático nesta skill.
 
 ## Passo 6 — Conferir o conector da Hostinger
 
@@ -167,6 +214,7 @@ Em três frases, sem termo técnico:
 | Publicação para na hora de subir | Conector da Hostinger desligado | Passo 6 |
 | Publicação na VPS para sem explicação | VPS criada com o modelo errado | Tem que ser "Ubuntu 24.04 with Docker" — o "with Claude Code" não serve |
 | Transcrição vazia | Falta whisper ou o modelo | Rodar `checar.sh` de novo |
+| No Windows, "command not found" logo no começo | Não rodou o `instalar.ps1`, ou não reabriu o terminal | Seção "Se for Windows" |
 
 ---
 

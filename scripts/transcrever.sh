@@ -13,6 +13,10 @@
 
 set -o pipefail
 
+# No Windows (Git Bash) o whisper vive em %USERPROFILE%\whisper-bin, que nem sempre
+# entra no PATH da sessao. Acrescentar aqui nao muda nada no Mac.
+[ -d "$HOME/whisper-bin" ] && export PATH="$HOME/whisper-bin:$PATH"
+
 ENTRADA="${1:?uso: transcrever.sh <video-ou-url> <pasta-saida> [--forcar]}"
 DESTINO="${2:?uso: transcrever.sh <video-ou-url> <pasta-saida> [--forcar]}"
 FORCAR=0

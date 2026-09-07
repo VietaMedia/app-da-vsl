@@ -21,6 +21,7 @@ for exigido in SKILL.md INSTALAR.md MANUAL.md template/package.json template/Doc
                scripts/detectar-destino.mjs scripts/gerar-compose.mjs \
                scripts/publicar-vps.md scripts/publicar-business.md \
                scripts/compose-borda.yml scripts/post-install-vps.sh \
+               scripts/windows/instalar.ps1 scripts/windows/checar.ps1 \
                references/PADRAO-DE-QUALIDADE.md; do
   [ -e "$SKILL/$exigido" ] || { echo "  !! FALTA $exigido"; exit 1; }
 done

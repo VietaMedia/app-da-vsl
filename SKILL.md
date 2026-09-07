@@ -28,7 +28,22 @@ bash ~/.claude/skills/app-da-vsl/scripts/checar.sh
 Se faltar algo, diga o que é e o que vai acontecer ("falta o programa que transcreve o vídeo;
 leva 5 minutos e é uma vez só") e instale você mesmo com o comando que o `checar.sh` imprime.
 Só o Homebrew e o login do GitHub (`gh auth login`) o usuário precisa fazer na própria
-tela; guie passo a passo. A Hostinger precisa estar conectada como MCP nesta sessão — para
+tela; guie passo a passo.
+
+**No Windows** o Claude Code roda dentro do Git Bash, então estes mesmos scripts `.sh`
+valem. O que muda é o instalador: o `checar.sh` detecta o Windows e, em vez de
+`brew install ...`, imprime uma dica só — rode-a você:
+
+```bash
+powershell -ExecutionPolicy Bypass -File "$HOME/.claude/skills/app-da-vsl/scripts/windows/instalar.ps1"
+```
+
+Ela instala Git, Node, `gh`, `ffmpeg`, o whisper e o modelo de transcrição. Depois disso,
+mande fechar e abrir o terminal. Lá o usuário só faz o `gh auth login`.
+
+> ⚠️ **A versão Windows nunca foi executada numa máquina Windows real.** Foi escrita com
+> cuidado e revisada, mas não testada. Se algo falhar nela, suspeite da skill antes de
+> suspeitar da máquina. A Hostinger precisa estar conectada como MCP nesta sessão — para
 publicar no plano de hospedagem, as ferramentas `hosting_*`; para publicar numa VPS,
 também as `VPS_*` e as `DNS_*`. Se não estiver, explique que é o conector da Hostinger no
 Claude Code e onde ele liga.

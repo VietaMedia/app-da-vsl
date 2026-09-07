@@ -15,6 +15,12 @@
 3. **Conta no GitHub** e o programa `gh` logado (`gh auth login`), pra guardar o código do seu app.
 4. Homebrew (instalador de programas do Mac). O resto a skill instala sozinha e te avisa.
 
+**Serve no Mac e no Windows.** A única diferença é o instalador dos programas de apoio: no
+Mac é o Homebrew, no Windows é um comando que o Claude roda sozinho. De resto tudo é igual,
+e a única coisa que você faz com as próprias mãos, nos dois, é entrar na sua conta do
+GitHub (`gh auth login`). *(No Windows a ferramenta ainda não foi testada numa máquina real
+— se travar, avise.)*
+
 ## Como usar
 Mande pro Claude Code, numa frase, o link da página da VSL (ou o arquivo do vídeo, ou a transcrição) e o e-mail que vai ser o dono do app:
 
